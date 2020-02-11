@@ -47,7 +47,7 @@ export default {
   align-content: center;
   width: 80px;
   height: 80px;
-  border: 1px inset #eee;
+  border: 1px solid #eee;
   cursor: pointer;
 }
 .cell.win {

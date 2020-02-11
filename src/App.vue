@@ -1,18 +1,19 @@
 <template>
   <div id="app">
-    <Board v-model="history" :disabled="outcome.finished" @reset="reset" :path="outcome.path" />
-    <div class="outcome">
-      <transition-group name="fade">
-        <span v-show="outcome.winner === 0" v-text="'X wins'" :key="0" />
-        <span v-show="outcome.winner === 1" v-text="'Y wins'" :key="1" />
-      </transition-group>
-    </div>
+    <Board
+      :value="history"
+      @input="input"
+      :disabled="outcome.finished"
+      @reset="reset"
+      :path="outcome.path"
+    />
+    <Report ref="report" @close="reset" />
   </div>
 </template>
 
 <script>
 import Board from './components/Board'
-
+import Report from './components/Report'
 export default {
   name: 'App',
   data() {
@@ -49,20 +50,34 @@ export default {
       }
       const winner = lists.findIndex(strike)
       const finished = winner !== -1 || this.history.length === 9
+      const report =
+        (winner === 1 && 'O wins') ||
+        (winner === 0 && 'X wins') ||
+        (finished && 'No one wins')
       return {
         finished,
+        report,
         winner,
         path
       }
     }
   },
   methods: {
+    input(value) {
+      this.history = value
+      this.$nextTick().then(() => {
+        if (this.outcome.finished) {
+          this.$refs.report.show(this.outcome.report)
+        }
+      })
+    },
     reset() {
       this.history = ''
     }
   },
   components: {
-    Board
+    Board,
+    Report
   }
 }
 </script>

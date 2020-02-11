@@ -62,7 +62,7 @@ export default {
 <style  scoped>
 .board {
   display: inline;
-  border: 1px inset #eee;
+  border: 1px solid #eee;
 }
 .board .row {
   display: flex;
