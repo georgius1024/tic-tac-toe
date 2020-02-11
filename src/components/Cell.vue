@@ -1,5 +1,10 @@
 <template>
-  <div class="cell" v-text="display" @click="click" />
+  <div class="cell" @click="click">
+    <transition-group name="fade">
+      <span v-show="owned === 0" v-text="'X'" :key="0"/>
+      <span v-show="owned === 1" v-text="'O'" :key="1"/>
+    </transition-group>
+  </div>
 </template>
 <script>
 export default {
@@ -13,16 +18,6 @@ export default {
       type: Number,
       required: true
     },
-  },
-  computed: {
-    display () {
-      if (this.owned === -1) {
-        return ''
-      } else {
-        return this.owned  ? 'O' : 'X'
-      }
-      
-    }
   },
   methods: {
     click() {
@@ -45,4 +40,11 @@ export default {
     border: 1px inset #eee;
     cursor: pointer;
   }
+
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .3s;
+}
+.fade-enter, .fade-leave-to {
+  opacity: 0;
+}  
 </style>
