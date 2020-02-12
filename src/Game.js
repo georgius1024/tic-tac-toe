@@ -44,14 +44,14 @@ class Game {
         const other = 1 - owner
         if (map[owner] === 3) {
           result.winner = owner
-          result.strike = [c1, c2, c3]
+          result.strike = [+c1, +c2, +c3]
           result.finished = true
           throw result
         } else if (map[owner] === 2 && !map[other]) {
-          const freeCell = [c1, c2, c3][vector.indexOf(-1)]
+          const freeCell = +[c1, c2, c3][vector.indexOf(-1)]
           result.winning[owner].push(freeCell)
         } else if (map[owner] === 1 && !map[other]) {
-          const freeCell = [c1, c2, c3][vector.indexOf(-1)]
+          const freeCell = +[c1, c2, c3][vector.indexOf(-1)]
           result.perspective[owner].push(freeCell)
         }
       }

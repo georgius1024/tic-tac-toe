@@ -56,43 +56,43 @@ describe('The Game class', () => {
     expect(x.analyze()).toMatchObject({
       winner: -1,
       strike: [],
-      winning: [['5', '1'], []]
+      winning: [[5, 1], []]
     })
     x.history = '4670385'
-    expect(x.analyze()).toMatchObject({ winner: 0, strike: ['3', '4', '5'] })
+    expect(x.analyze()).toMatchObject({ winner: 0, strike: [3, 4, 5] })
 
     x.history = '1680'
-    expect(x.analyze()).toMatchObject({ winner: -1, winning: [[], ['3']] })
+    expect(x.analyze()).toMatchObject({ winner: -1, winning: [[], [3]] })
 
     x.history = '168074'
     expect(x.analyze()).toMatchObject({
       winner: -1,
-      winning: [[], ['3', '2']]
+      winning: [[], [3, 2]]
     })
 
     x.history = '16807432'
-    expect(x.analyze()).toMatchObject({ winner: 1, strike: ['2', '4', '6'] })
+    expect(x.analyze()).toMatchObject({ winner: 1, strike: [2, 4, 6] })
 
     x.history = '432758'
-    expect(x.analyze()).toMatchObject({ winner: -1, winning: [['6'], ['6']] })
+    expect(x.analyze()).toMatchObject({ winner: -1, winning: [[6], [6]] })
 
     x.history = '4670'
     expect(x.analyze()).toMatchObject({
       winner: -1,
-      winning: [['1'], ['3']],
-      perspective: [['3'], ['1']]
+      winning: [[1], [3]],
+      perspective: [[3], [1]]
     })
     x.history = '467031'
     expect(x.analyze()).toMatchObject({
       winner: -1,
-      winning: [['5'], ['2']],
+      winning: [[5], [2]],
       perspective: [[], []]
     })
     x.history = '4170'
     expect(x.analyze()).toMatchObject({
       winner: -1,
-      winning: [[], ['2']],
-      perspective: [['3', '6', '2'], ['3']]
+      winning: [[], [2]],
+      perspective: [[3, 6, 2], [3]]
     })
   })
 
@@ -140,7 +140,7 @@ describe('The Game class', () => {
 
     x.history = '4170'
     t = x.calculateTurn()
-    expect(t).toBe('2')
+    expect(t).toBe(2)
 
     x.history = '4526'
     t = +x.calculateTurn()
