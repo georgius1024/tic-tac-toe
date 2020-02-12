@@ -1,3 +1,7 @@
+function randomTake(list) {
+  return list[Math.floor(Math.random() * list.length)]
+}
+
 class Game {
   constructor(history = '') {
     this.history = history
@@ -71,35 +75,6 @@ class Game {
 
   nextTurn() {
     const corners = [0, 2, 6, 8]
-    const smartTurn = () => {
-      const player = this.history.length % 2
-      const other = 1 - player
-      const data = this.analyze()
-      if (data.winner !== -1 || this.history.length === 9) {
-        //  game is over
-        return -1
-      } else {
-        if (data.winning[player].length) {
-          // if can win
-          return randomTake(data.winning[player])
-        } else if (data.winning[other].length) {
-          // if other can win
-          return randomTake(data.winning[other])
-        } else if (data.perspective[player].length) {
-          // if have perspective
-          return randomTake(data.perspective[player])
-        } else if (data.perspective[other].length) {
-          // if other has perspective
-          return randomTake(data.perspective[other])
-        } else {
-          return this.randomTurn()
-        }
-      }
-    }
-
-    const randomTake = list => {
-      return list[Math.floor(Math.random() * list.length)]
-    }
     if (this.history.length === 0) {
       return 4 // take center
     } else if (this.history.length === 1) {
@@ -111,7 +86,33 @@ class Game {
         return 4 // take center
       }
     } else {
-      return smartTurn()
+      return this.calculateTurn()
+    }
+  }
+
+  calculateTurn() {
+    const player = this.currentPlayer()
+    const other = 1 - player
+    const data = this.analyze()
+    if (data.winner !== -1 || this.history.length === 9) {
+      //  game is over
+      return -1
+    } else {
+      if (data.winning[player].length) {
+        // if can win
+        return randomTake(data.winning[player])
+      } else if (data.winning[other].length) {
+        // if other can win
+        return randomTake(data.winning[other])
+      } else if (data.perspective[player].length) {
+        // if have perspective
+        return randomTake(data.perspective[player])
+      } else if (data.perspective[other].length) {
+        // if other has perspective
+        return randomTake(data.perspective[other])
+      } else {
+        return this.randomTurn()
+      }
     }
   }
 
@@ -122,7 +123,7 @@ class Game {
         freeCells.push(cell)
       }
     }
-    return freeCells[Math.floor(Math.random() * freeCells.length)]
+    return randomTake(freeCells)
   }
 }
 
