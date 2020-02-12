@@ -1,12 +1,12 @@
 <template>
   <div id="app">
-    <Board :value="history" @input="input" :disabled="finished" @reset="reset" :path="strike" />
+    <Board :value="history" @input="input" :disabled="finished" @reset="resetGame" :path="strike" />
     <div class="your-turn">
       <span v-show="humanPlayer === currentPlayer" v-text="'Make your turn'" />
     </div>
-    <button @click="reset">Restart</button>
-    <Report ref="report" @close="reset" />
-    <Setup ref="setup" @close="start" />
+    <button @click="resetGame">Restart</button>
+    <Report ref="report" @close="resetGame" />
+    <Setup ref="setup" @close="startGame" />
   </div>
 </template>
 
@@ -15,6 +15,7 @@ import Board from './components/Board'
 import Report from './components/Report'
 import Setup from './components/Setup'
 import Game from './Game'
+const storageKey = 'games-played'
 export default {
   name: 'App',
   data() {
@@ -24,11 +25,13 @@ export default {
       finished: false,
       currentPlayer: -1,
       winner: -1,
-      strike: []
+      strike: [],
+      gamesPlayed: []
     }
   },
   created() {
     this.game = new Game()
+    this.gamesPlayed = JSON.parse(localStorage.getItem(storageKey) || '[]')
   },
   mounted() {
     this.setupGame()
@@ -37,9 +40,20 @@ export default {
     setupGame() {
       this.$refs.setup.show()
     },
-    start(player) {
+    startGame(player) {
       this.humanPlayer = player
+      this.act()
+    },
+    resetGame() {
       this.input('')
+      this.setupGame()
+    },
+    stopGame() {
+      if (!this.gamesPlayed.find(e => e.history === this.history)) {
+        this.gamesPlayed.push({ history: this.history, winner: this.winner })
+        localStorage.setItem(storageKey, JSON.stringify(this.gamesPlayed))
+        this.$refs.report.show(this.report())
+      }
     },
     report() {
       return (
@@ -58,19 +72,16 @@ export default {
     },
     act() {
       if (this.currentPlayer !== this.humanPlayer && !this.finished) {
-        this.input(this.history + this.game.nextTurn())
+        this.input(this.history + this.game.nextTurn(this.gamesPlayed))
       }
       if (this.finished) {
-        this.$refs.report.show(this.report())
+        this.stopGame()
       }
     },
     input(value) {
       this.history = value
       this.analyze()
       this.act()
-    },
-    reset() {
-      this.setupGame()
     }
   },
   components: {

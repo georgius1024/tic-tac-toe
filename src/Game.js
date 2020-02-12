@@ -75,7 +75,11 @@ class Game {
     return result
   }
 
-  nextTurn() {
+  nextTurn(games) {
+    const match = this.searchHistory(games)
+    if (match !== -1) {
+      return match
+    }
     const corners = [0, 2, 6, 8]
     if (this.history.length === 0) {
       return 4 // take center
@@ -126,6 +130,17 @@ class Game {
       }
     }
     return randomTake(freeCells)
+  }
+
+  searchHistory(games) {
+    const player = this.currentPlayer()
+    const matched = games
+      .filter(e => e.history.indexOf(this.history) === 0)
+      .filter(e => e.winner === player)
+    if (matched.length) {
+      return matched[0].history[this.history.length]
+    }
+    return -1
   }
 }
 
