@@ -20,6 +20,7 @@ class Game {
 
   analyze() {
     const result = {
+      finished: this.history.length === 9,
       winner: -1,
       strike: [],
       winning: [[], []],
@@ -44,6 +45,7 @@ class Game {
         if (map[owner] === 3) {
           result.winner = owner
           result.strike = [c1, c2, c3]
+          result.finished = true
           throw result
         } else if (map[owner] === 2 && !map[other]) {
           const freeCell = [c1, c2, c3][vector.indexOf(-1)]
