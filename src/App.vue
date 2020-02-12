@@ -6,7 +6,13 @@
         v-text="'Make your turn'"
       />
     </div>
-    <Board :value="history" @input="input" :disabled="finished" @reset="resetGame" :path="strike" />
+    <Board
+      :value="history"
+      :disabled="finished"
+      :strike="strike"
+      @input="input"
+      @reset="resetGame"
+    />
     <div class="side-panel">
       <button class="reset-button" v-show="currentPlayer !== -1" @click="resetGame">Restart</button>
     </div>
@@ -103,14 +109,25 @@ export default {
   }
 }
 </script>
-
+<style>
+html,
+body,
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+body {
+  color: #333;
+  background: #fff;
+}
+</style>
 <style scoped>
 main {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
   display: flex;
   height: 100vh;
   align-items: center;

@@ -6,7 +6,7 @@
         :key="index"
         :index="cell.index"
         :owned="cell.owned"
-        :win="cell.win"
+        :highlight="cell.highlight"
         :disabled="disabled"
         @input="input"
         @reset="reset"
@@ -30,8 +30,9 @@ export default {
       type: Boolean,
       default: false
     },
-    path: {
-      type: Array
+    strike: {
+      type: Array,
+      required: true
     }
   },
   computed: {
@@ -42,7 +43,7 @@ export default {
         const cell = {
           index,
           owned: owned === -1 ? owned : owned % 2,
-          win: this.path.indexOf(index) !== -1
+          highlight: this.strike.indexOf(index) !== -1
         }
         result[Math.floor(index / 3)].push(cell)
       }

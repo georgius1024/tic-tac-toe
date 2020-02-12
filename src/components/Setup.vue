@@ -42,7 +42,7 @@ export default {
   justify-content: center;
 }
 .modal {
-  border: 1ps solid #ddd;
+  border: 1px solid #ddd;
   background: #fff;
   box-shadow: 4px 4px 5px;
   padding: 32px;
@@ -60,6 +60,7 @@ export default {
   align-items: center;
   justify-content: center;
 }
+
 .modal .body button {
   font-family: 'Architects Daughter', cursive;
   font-size: 64px;

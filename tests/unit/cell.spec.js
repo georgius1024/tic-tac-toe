@@ -7,21 +7,21 @@ describe('Cell.vue', () => {
       index: 1,
       owned: 0,
       disabled: true,
-      win: true
+      highlight: true
     }
     const wrapper = shallowMount(Cell, {
       propsData
     })
     expect(wrapper.html()).toMatch('X')
     expect(wrapper.html()).toMatch('disabled')
-    expect(wrapper.html()).toMatch('win')
+    expect(wrapper.html()).toMatch('highlight')
   })
   it('clicks emit event when not disabled and not owned', () => {
     const propsData = {
       index: 1,
       owned: 0,
       disabled: true,
-      win: true
+      highlight: true
     }
     let wrapper = shallowMount(Cell, {
       propsData

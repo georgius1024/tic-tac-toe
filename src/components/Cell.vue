@@ -1,5 +1,5 @@
 <template>
-  <div :class="{cell: true, disabled, win}" @click="click">
+  <div :class="{cell: true, disabled, highlight}" @click="click">
     <transition-group name="fade">
       <span v-if="owned === 0" v-text="'X'" :key="0" />
       <span v-if="owned === 1" v-text="'O'" :key="1" />
@@ -22,7 +22,7 @@ export default {
       type: Boolean,
       default: false
     },
-    win: {
+    highlight: {
       type: Boolean,
       default: false
     }
@@ -50,7 +50,7 @@ export default {
   border: 1px solid #eee;
   cursor: pointer;
 }
-.cell.win {
+.cell.highlight {
   color: yellowgreen;
 }
 .fade-enter-active,

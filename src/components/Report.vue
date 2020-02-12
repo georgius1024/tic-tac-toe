@@ -64,6 +64,12 @@ export default {
   flex-direction: column;
 }
 
+@media (max-width: 600px) {
+  .report {
+    width: 75vw;
+  }
+}
+
 .message {
   font-size: 120%;
   margin: 36px 24px 16px;
@@ -79,6 +85,7 @@ export default {
 
 .cta {
   font-size: 80%;
+  cursor: pointer;
 }
 
 .slide-enter-active {

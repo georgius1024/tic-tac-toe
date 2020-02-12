@@ -6,15 +6,15 @@ describe('Board.vue', () => {
     const propsData = {
       value: '4321',
       disabled: true,
-      path: [4, 3, 2]
+      strike: [4, 3, 2]
     }
     const wrapper = shallowMount(Board, {
       propsData
     })
     expect(wrapper.vm.cells[0]).toEqual([
-      { index: 0, owned: -1, win: false },
-      { index: 1, owned: 1, win: false },
-      { index: 2, owned: 0, win: true }
+      { index: 0, owned: -1, highlight: false },
+      { index: 1, owned: 1, highlight: false },
+      { index: 2, owned: 0, highlight: true }
     ])
     expect(wrapper.html()).toMatch('board')
     expect(wrapper.html()).toMatch('row')
@@ -25,7 +25,7 @@ describe('Board.vue', () => {
     const propsData = {
       value: '4321',
       disabled: true,
-      path: [4, 3, 2]
+      strike: [4, 3, 2]
     }
     const wrapper = shallowMount(Board, {
       propsData

@@ -7,6 +7,8 @@ describe('Setup.vue', () => {
     expect(wrapper.html()).toMatch('wrapper')
     expect(wrapper.html()).toMatch('modal')
     expect(wrapper.html()).toMatch('body')
+    wrapper.vm.show()
+    expect(wrapper.vm.visible).toBeTruthy()
   })
 
   it('emits events when clicked', () => {
@@ -16,7 +18,6 @@ describe('Setup.vue', () => {
     expect(wrapper.emitted().input).toEqual([[0]])
     wrapper.vm.close(1)
     expect(wrapper.emitted().input).toEqual([[0], [1]])
-
     wrapper.vm.show()
     expect(wrapper.vm.visible).toBeTruthy()
   })

@@ -1,6 +1,19 @@
-function randomTake(list) {
-  return list[Math.floor(Math.random() * list.length)]
-}
+/*
+Game board is sequence of cells [0..8] just like:
+| 0 | 1 | 2 |
+| 3 | 4 | 5 |
+| 6 | 7 | 8 |
+ 
+Game data is the sequence of cell numbers stored as a string.
+Sequence "482617" renders to:
+|   | X | X |
+|   | X |   |
+| 0 | 0 | 0 |
+Chars 0, 2, 4, 8 is for first player (X)
+Chars 1, 3, 5, 9 is for second player (0)
+
+Computer player uses game history to find relevant winning scenario and use AI if search fails
+*/
 
 class Game {
   constructor(history = '') {
@@ -15,6 +28,7 @@ class Game {
   }
 
   currentPlayer() {
+    // 0 is first, 1 is second
     return this.history.length % 2
   }
 
@@ -85,8 +99,8 @@ class Game {
       return 4 // take center
     } else if (this.history.length === 1) {
       if (this.history[0] === '4') {
-        // center has been taken
-        // take one of the corners
+        // center has been already taken
+        // so take one of the corners
         return randomTake(corners)
       } else {
         return 4 // take center
@@ -101,7 +115,7 @@ class Game {
     const other = 1 - player
     const data = this.analyze()
     if (data.winner !== -1 || this.history.length === 9) {
-      //  game is over
+      // game is over
       return -1
     } else {
       if (data.winning[player].length) {
@@ -137,6 +151,7 @@ class Game {
       return -1
     }
     const player = this.currentPlayer()
+    // winned games with the same turns
     const matched = games
       .filter(e => e.history.indexOf(this.history) === 0)
       .filter(e => e.winner === player)
@@ -145,6 +160,10 @@ class Game {
     }
     return -1
   }
+}
+
+function randomTake(list) {
+  return list[Math.floor(Math.random() * list.length)]
 }
 
 export default Game
