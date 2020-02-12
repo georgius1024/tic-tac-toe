@@ -5,8 +5,8 @@
       <span v-show="humanPlayer === currentPlayer" v-text="'Make your turn'" />
     </div>
     <button @click="resetGame">Restart</button>
-    <Report ref="report" @close="resetGame" />
-    <Setup ref="setup" @close="startGame" />
+    <Report ref="report" @input="resetGame" />
+    <Setup ref="setup" @input="startGame" />
   </div>
 </template>
 

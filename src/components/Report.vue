@@ -31,7 +31,7 @@ export default {
     },
     hide() {
       this.visible = false
-      this.$emit('close')
+      this.$emit('input')
     },
     keydown(e) {
       if (e.code === 'Escape' && this.visible) {

@@ -25,7 +25,7 @@ export default {
     },
     close(result) {
       this.visible = false
-      this.$emit('close', result)
+      this.$emit('input', result)
     }
   }
 }

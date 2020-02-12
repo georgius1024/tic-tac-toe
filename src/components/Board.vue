@@ -8,7 +8,7 @@
         :owned="cell.owned"
         :win="cell.win"
         :disabled="disabled"
-        @click="click"
+        @input="input"
         @reset="reset"
       />
     </div>
@@ -50,7 +50,7 @@ export default {
     }
   },
   methods: {
-    click(index) {
+    input(index) {
       this.$emit('input', this.value + index)
     },
     reset() {

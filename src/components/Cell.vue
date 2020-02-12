@@ -1,8 +1,8 @@
 <template>
   <div :class="{cell: true, disabled, win}" @click="click">
     <transition-group name="fade">
-      <span v-show="owned === 0" v-text="'X'" :key="0" />
-      <span v-show="owned === 1" v-text="'O'" :key="1" />
+      <span v-if="owned === 0" v-text="'X'" :key="0" />
+      <span v-if="owned === 1" v-text="'O'" :key="1" />
     </transition-group>
   </div>
 </template>
@@ -32,7 +32,7 @@ export default {
       if (this.disabled) {
         this.$emit('reset')
       } else if (this.owned === -1) {
-        this.$emit('click', this.index)
+        this.$emit('input', this.index)
       }
     }
   }

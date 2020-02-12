@@ -133,12 +133,15 @@ class Game {
   }
 
   searchHistory(games) {
+    if (!Array.isArray(games) || !games.length || !this.history.length) {
+      return -1
+    }
     const player = this.currentPlayer()
     const matched = games
       .filter(e => e.history.indexOf(this.history) === 0)
       .filter(e => e.winner === player)
     if (matched.length) {
-      return matched[0].history[this.history.length]
+      return +matched[0].history[this.history.length]
     }
     return -1
   }
