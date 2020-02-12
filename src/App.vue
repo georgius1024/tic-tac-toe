@@ -1,12 +1,9 @@
 <template>
   <div id="app">
-    <Board
-      :value="history"
-      @input="input"
-      :disabled="outcome.finished"
-      @reset="reset"
-      :path="outcome.path"
-    />
+    <Board :value="history" @input="input" :disabled="finished" @reset="reset" :path="strike" />
+    <div class="your-turn">
+      <span v-show="playerTurn" v-text="'Make your turn'" />
+    </div>
     <Report ref="report" @close="reset" />
   </div>
 </template>
@@ -18,17 +15,26 @@ export default {
   name: 'App',
   data() {
     return {
-      history: ''
+      history: '',
+      winner: -1,
+      finished: false,
+      strike: [],
+      report: ''
     }
   },
   computed: {
-    outcome() {
-      let path = []
-      function strike(list) {
+    playerTurn() {
+      return !this.finished && this.history.length % 2 === 0
+    }
+  },
+  methods: {
+    analyze() {
+      this.strike = []
+      const testLines = list => {
         const cells = new Set(list)
-        function test(c1, c2, c3) {
+        const test = (c1, c2, c3) => {
           if (cells.has(c1) && cells.has(c2) && cells.has(c3)) {
-            path = [+c1, +c2, +c3]
+            this.strike = [+c1, +c2, +c3]
             return true
           }
         }
@@ -48,31 +54,39 @@ export default {
         const player = i % 2
         lists[player].push(this.history[i])
       }
-      const winner = lists.findIndex(strike)
-      const finished = winner !== -1 || this.history.length === 9
-      const report =
-        (winner === 1 && 'O wins') ||
-        (winner === 0 && 'X wins') ||
-        (finished && 'No one wins')
-      return {
-        finished,
-        report,
-        winner,
-        path
-      }
-    }
-  },
-  methods: {
+      this.winner = lists.findIndex(testLines)
+      this.finished = this.winner !== -1 || this.history.length === 9
+      this.report =
+        (this.winner === 1 && 'O wins') ||
+        (this.winner === 0 && 'X wins') ||
+        (this.finished && 'No one wins')
+    },
+
     input(value) {
       this.history = value
+      this.analyze()
       this.$nextTick().then(() => {
-        if (this.outcome.finished) {
-          this.$refs.report.show(this.outcome.report)
+        if (this.finished) {
+          this.$refs.report.show(this.report)
+        } else if (!this.playerTurn) {
+          this.computerTurn()
         }
       })
     },
+    computerTurn() {
+      const freeCells = []
+      for (let cell = 0; cell < 9; cell++) {
+        if (!this.history.includes(cell)) {
+          freeCells.push(cell)
+        }
+      }
+      this.history += freeCells[Math.floor(Math.random() * freeCells.length)]
+    },
     reset() {
       this.history = ''
+      this.winner = -1
+      this.finished = false
+      this.report = ''
     }
   },
   components: {
@@ -95,7 +109,7 @@ export default {
   justify-content: center;
   flex-direction: column;
 }
-.outcome {
+.your-turn {
   display: flex;
   align-items: center;
   justify-content: center;
