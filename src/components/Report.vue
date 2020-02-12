@@ -1,13 +1,13 @@
 <template>
-  <transition name="fade">
-    <div class="wrapper" v-show="visible" @click="hide">
-      <div class="report">
+  <div class="wrapper" v-show="visible" @click="hide">
+    <transition name="slide">
+      <div class="report" v-show="visible">
         <div class="close" href="#" @click="hide">&times;</div>
-        {{message}}
-        <button class="cta" @click="hide">Restart game</button>
+        <div class="message">{{message}}</div>
+        <p class="cta">Click to restart game</p>
       </div>
-    </div>
-  </transition>
+    </transition>
+  </div>
 </template>
 <script>
 export default {
@@ -47,22 +47,28 @@ export default {
   background: rgba(0, 0, 0, 0.1);
   width: 100vw;
   height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
 }
+
 .report {
+  position: absolute;
+  top: 12px;
+  width: 50vw;
+  margin: auto;
   border: 1ps solid #ddd;
   background: #fff;
   box-shadow: 4px 4px 5px;
-  font-size: 120%;
-  padding: 32px 48px;
+  padding: 16px 16px 0;
   cursor: default;
   position: relative;
   display: flex;
   flex-direction: column;
 }
+
+.message {
+  font-size: 120%;
+  margin: 36px 24px 16px;
+}
+
 .close {
   font-size: 32px;
   cursor: pointer;
@@ -70,21 +76,20 @@ export default {
   top: 6px;
   right: 10px;
 }
+
 .cta {
-  background-color: #ddd;
-  border: 1px solid #ddd;
-  margin-top: 32px;
-  padding: 16px;
-  font-size: 16px;
-  cursor: pointer;
+  font-size: 80%;
 }
 
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.3s;
+.slide-enter-active {
+  transition: all 0.3s ease;
 }
-.fade-enter,
-.fade-leave-to {
+.slide-leave-active {
+  transition: all 0.8s cubic-bezier(1, 0.5, 0.8, 1);
+}
+.slide-enter,
+.slide-leave-to {
+  transform: translateY(-300px);
   opacity: 0;
 }
 </style>

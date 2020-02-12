@@ -45,8 +45,8 @@ export default {
   display: flex;
   justify-content: center;
   align-content: center;
-  width: 80px;
-  height: 80px;
+  width: 94px;
+  height: 94px;
   border: 1px solid #eee;
   cursor: pointer;
 }

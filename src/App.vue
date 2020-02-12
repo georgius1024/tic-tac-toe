@@ -4,20 +4,23 @@
     <div class="your-turn">
       <span v-show="humanPlayer === currentPlayer" v-text="'Make your turn'" />
     </div>
+    <button @click="reset">Restart</button>
     <Report ref="report" @close="reset" />
+    <Setup ref="setup" @close="start" />
   </div>
 </template>
 
 <script>
 import Board from './components/Board'
 import Report from './components/Report'
+import Setup from './components/Setup'
 import Game from './Game'
 export default {
   name: 'App',
   data() {
     return {
       history: '',
-      humanPlayer: 0,
+      humanPlayer: -1,
       finished: false,
       currentPlayer: -1,
       winner: -1,
@@ -28,10 +31,16 @@ export default {
     this.game = new Game()
   },
   mounted() {
-    this.analyze()
-    this.act()
+    this.setupGame()
   },
   methods: {
+    setupGame() {
+      this.$refs.setup.show()
+    },
+    start(player) {
+      this.humanPlayer = player
+      this.input('')
+    },
     report() {
       return (
         (this.winner === 1 && 'O wins') ||
@@ -61,10 +70,11 @@ export default {
       this.act()
     },
     reset() {
-      this.input('')
+      this.setupGame()
     }
   },
   components: {
+    Setup,
     Board,
     Report
   }
