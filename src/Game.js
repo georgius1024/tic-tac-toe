@@ -9,8 +9,8 @@ Sequence "482617" renders to:
 |   | X | X |
 |   | X |   |
 | 0 | 0 | 0 |
-Chars 0, 2, 4, 8 is for first player (X)
-Chars 1, 3, 5, 9 is for second player (0)
+Chars at positions 0, 2, 4, 8 are for first player (X)
+Positions 1, 3, 5 are for second player (0)
 
 Computer player uses game history to find relevant winning scenario and use AI if search fails
 */
