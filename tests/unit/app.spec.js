@@ -23,7 +23,8 @@ describe('App.vue', () => {
   it('can resetGame', () => {
     const wrapper = shallowMount(App)
     wrapper.vm.resetGame()
-    expect(wrapper.vm.currentPlayer).toBe(-1)
+    expect(wrapper.vm.humanPlayer).toBe(-1)
+    expect(wrapper.vm.currentPlayer).toBe(0)
     expect(wrapper.vm.winner).toBe(-1)
     expect(wrapper.vm.finished).toBeFalsy()
   })

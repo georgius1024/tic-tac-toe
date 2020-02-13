@@ -33,6 +33,14 @@ class Game {
   }
 
   analyze() {
+    if (!this.analyzeHistory) {
+      this.analyzeHistory = new Map()
+    } else {
+      if (this.analyzeHistory.has(this.history)) {
+        return this.analyzeHistory.get(this.history)
+      }
+    }
+
     const result = {
       finished: this.history.length === 9,
       winner: -1,
@@ -83,9 +91,11 @@ class Game {
       if (e instanceof Error) {
         throw e
       } else {
+        this.analyzeHistory.set(this.history, result)
         return result
       }
     }
+    this.analyzeHistory.set(this.history, result)
     return result
   }
 

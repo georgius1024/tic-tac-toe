@@ -1,10 +1,7 @@
 <template>
   <main>
     <div class="side-panel">
-      <span
-        v-show="humanPlayer === currentPlayer && currentPlayer !== -1"
-        v-text="'Make your turn'"
-      />
+      <span v-show="humanPlayer === currentPlayer" v-text="'Make your turn'" />
     </div>
     <Board
       :value="history"
@@ -14,7 +11,7 @@
       @reset="resetGame"
     />
     <div class="side-panel">
-      <button class="reset-button" v-show="currentPlayer !== -1" @click="resetGame">Restart</button>
+      <button class="reset-button" v-show="humanPlayer !== -1" @click="resetGame">Restart</button>
     </div>
     <Setup ref="setup" @input="startGame" />
     <Report ref="report" @input="resetGame" />
@@ -45,23 +42,25 @@ export default {
     this.gamesPlayed = JSON.parse(localStorage.getItem(storageKey) || '[]')
   },
   mounted() {
-    this.setupGame()
+    this.resetGame()
   },
   methods: {
-    setupGame() {
-      this.$refs.setup.show && this.$refs.setup.show()
+    initializeGame() {
+      this.history = ''
+      this.game.history = ''
+      this.finished = false
+      this.winner = -1
+      this.strike = []
+      this.currentPlayer = 0
+      this.humanPlayer = -1
     },
     startGame(player) {
       this.humanPlayer = player
-      this.history = ''
-      this.analyze()
       this.act()
     },
     resetGame() {
-      this.history = ''
-      this.analyze()
-      this.currentPlayer = -1
-      this.setupGame()
+      this.initializeGame()
+      this.$refs.setup.show && this.$refs.setup.show()
     },
     stopGame() {
       if (!this.gamesPlayed.find(e => e.history === this.history)) {
