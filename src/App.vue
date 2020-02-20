@@ -125,7 +125,7 @@ body {
   background: #fff;
 }
 </style>
-<style scoped>
+<style>
 main {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
