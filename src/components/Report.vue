@@ -4,7 +4,7 @@
       <div class="report" v-show="visible">
         <div class="close" href="#" @click="hide">&times;</div>
         <div class="message">{{message}}</div>
-        <p class="cta">Click to restart game</p>
+        <p class="cta">Restart game</p>
       </div>
     </transition>
   </div>
@@ -54,9 +54,9 @@ export default {
   top: 12px;
   width: 50vw;
   margin: auto;
-  border: 1ps solid #ddd;
-  background: #fff;
-  box-shadow: 4px 4px 5px;
+  border: 1ps solid #8b9b9b;
+  background: #ccc;
+  box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
   padding: 16px 16px 0;
   cursor: default;
   position: relative;
@@ -86,6 +86,7 @@ export default {
 .cta {
   font-size: 80%;
   cursor: pointer;
+  margin-bottom: 16px;
 }
 
 .slide-enter-active {

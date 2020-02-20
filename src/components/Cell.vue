@@ -47,7 +47,8 @@ export default {
   align-content: center;
   width: 94px;
   height: 94px;
-  border: 1px solid #eee;
+  color: #312603;
+  border: 1px solid #8b9b9b;
   cursor: pointer;
 }
 .cell.highlight {

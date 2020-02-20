@@ -11,7 +11,11 @@
       @reset="resetGame"
     />
     <div class="side-panel">
-      <button class="reset-button" v-show="humanPlayer !== -1" @click="resetGame">Restart</button>
+      <button
+        class="reset-button"
+        v-show="humanPlayer !== -1 && !finished"
+        @click="resetGame"
+      >Restart</button>
     </div>
     <Setup ref="setup" @input="startGame" />
     <Report ref="report" @input="resetGame" />
@@ -132,6 +136,8 @@ main {
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  background-image: url('./assets/background.jpg');
+  background-size: cover;
 }
 .side-panel {
   display: flex;

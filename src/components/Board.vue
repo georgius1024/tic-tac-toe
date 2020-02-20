@@ -63,7 +63,9 @@ export default {
 <style  scoped>
 .board {
   display: inline;
-  border: 1px solid #eee;
+  border: 4px solid #8b9b9b;
+  background-color: #fff;
+  box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
 }
 .board .row {
   display: flex;

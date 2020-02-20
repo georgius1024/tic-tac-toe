@@ -42,9 +42,9 @@ export default {
   justify-content: center;
 }
 .modal {
-  border: 1px solid #ddd;
-  background: #fff;
-  box-shadow: 4px 4px 5px;
+  border: 1ps solid #8b9b9b;
+  background: #ccc;
+  box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
   padding: 32px;
   display: flex;
   flex-direction: column;
@@ -69,8 +69,8 @@ export default {
   align-content: center;
   width: 94px;
   height: 94px;
-  border: 1px solid #ccc;
-  background-color: #ccc;
+  border: 1px solid #999;
+  background-color: #999;
   cursor: pointer;
   color: #333;
   margin: 0 32px 28px;
